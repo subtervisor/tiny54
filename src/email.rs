@@ -97,6 +97,7 @@ pub fn send(cfg: &Config, subject: &str, html_body: &str) -> Result<(), String> 
                 })?;
             let mut session = SmtpSession::new(tls);
             session.expect_greeting()?;
+            session.ehlo()?;
             send_message(&mut session, cfg, subject, html_body)
         }
         TlsMode::StartTls => {
